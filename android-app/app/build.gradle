@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "STORE_URL", '"http://www.cbr.ru/scripts/XML_daily.asp"')
+        buildConfigField("String", "STORE_FILE", '"market.asp"')
     }
     buildTypes {
         release {
