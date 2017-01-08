@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="margin">8.0dp</dimen>
+    <dimen name="margin__large">16.0dp</dimen>
+    <dimen name="margin__small">4.0dp</dimen>
 
     <dimen name="text">14.0sp</dimen>
     <dimen name="text__large">16.0sp</dimen>

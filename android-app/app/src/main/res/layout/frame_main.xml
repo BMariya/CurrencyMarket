@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/base__dark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:paddingLeft="@dimen/margin__large"
+        android:paddingRight="@dimen/margin__large">
+
+        <TextView
+            android:id="@+id/frame_main__tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/AppTheme.Text.Title"
+            android:text="frame_main__tv_title" />
+        <TextView
+            android:id="@+id/frame_main__tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin__small"
+            style="@style/AppTheme.Text"
+            android:text="frame_main__tv_date" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="@dimen/margin"
+        android:paddingLeft="@dimen/margin__large"
+        android:paddingRight="@dimen/margin__large"
+        android:background="@color/spec">
+
+        <EditText
+            android:id="@+id/frame_main__etv_ref_valute_amount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="end"
+            android:inputType="numberDecimal"
+            android:maxLength="@integer/amount__maxLength"
+            style="@style/AppTheme.Text.Title"
+            android:text="frame_main__etv_ref_valute_amount" />
+        <TextView
+            android:id="@+id/frame_main__tv_ref_valute_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin__small"
+            android:layout_marginLeft="@dimen/margin__small"
+            style="@style/AppTheme.Text.Title"
+            android:text="frame_main__tv_ref_valute_code" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/frame_main__rv_valutes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:layout_marginTop="@dimen/margin__small"
+        android:layout_marginBottom="@dimen/margin__small" />
+</LinearLayout>

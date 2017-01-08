@@ -3,6 +3,7 @@
 
     <color name="base">#ff299e30</color>
     <color name="base__dark">#ff016335</color>
+    <color name="spec">#fff59624</color>
 
     <color name="text">#ffffffff</color>
 
