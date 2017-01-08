@@ -11,5 +11,8 @@
         <item name="android:textSize">@dimen/text__large</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="AppTheme.Text.Remark" parent="@style/AppTheme.Text">
+        <item name="android:textSize">@dimen/text__small</item>
+    </style>
 
 </resources>
