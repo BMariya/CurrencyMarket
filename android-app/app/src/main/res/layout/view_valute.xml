@@ -24,13 +24,13 @@
         android:layout_marginTop="@dimen/margin__small">
 
         <TextView
-            android:id="@+id/view_valute__tv_ref_value_nominal"
+            android:id="@+id/view_valute__tv_ref_nominal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/AppTheme.Text.Remark"
-            android:text="view_valute__tv_ref_value_nominal" />
+            android:text="view_valute__tv_ref_nominal" />
         <TextView
-            android:id="@+id/view_valute__tv_value_nominal"
+            android:id="@+id/view_valute__tv_nominal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
@@ -38,6 +38,6 @@
             android:layout_marginStart="@dimen/margin__small"
             android:layout_marginLeft="@dimen/margin__small"
             style="@style/AppTheme.Text.Remark"
-            android:text="view_valute__tv_value_nominal" />
+            android:text="view_valute__tv_nominal" />
     </LinearLayout>
 </LinearLayout>
