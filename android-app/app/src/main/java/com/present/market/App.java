@@ -1,10 +1,11 @@
 package com.present.market;
 
-import com.present.market.core.AbsApp;
 import com.present.market.core.base.AppType;
+import com.present.market.core.store.LocalSource;
+import com.present.market.core.store.RemoteSource;
+import com.present.market.core.AbsApp;
 import com.present.market.obj.Valute;
-import com.present.market.store.LocalStore;
-import com.present.market.store.RemoteStore;
+import com.present.market.obj.Valutes;
 
 public final class App extends AbsApp {
     private final Valute mValuteRuble = new Valute("RUR", "Российский рубль", 1, "1");
@@ -12,13 +13,11 @@ public final class App extends AbsApp {
     private AppStore mAppStore;
     @Override
     protected void onInit() {
-        AppType.AppFile localStoreFile = new AppType.AppFile(getAppDir(), BuildConfig.STORE_FILE);
-        LocalStore localStore = new LocalStore(localStoreFile);
-
-        AppType.AppUrl remoteStoreUrl = new AppType.AppUrl(BuildConfig.STORE_URL);
-        RemoteStore remoteStore = new RemoteStore(remoteStoreUrl);
-
-        this.mAppStore = new AppStore(localStore, remoteStore, this.mValuteRuble);
+        String localFilePath = AppType.getFilePath(getAppDir(), BuildConfig.STORE_FILE);
+        LocalSource<Valutes> localSource = new LocalSource<>(localFilePath, Valutes.class);
+        RemoteSource<Valutes> remoteSource =
+                new RemoteSource<>(BuildConfig.STORE_URL, Valutes.class);
+        this.mAppStore = new AppStore(localSource, remoteSource, this.mValuteRuble);
     }
 
     public AppStore store() {

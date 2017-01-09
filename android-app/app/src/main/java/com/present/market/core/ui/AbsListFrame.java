@@ -41,7 +41,6 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
         log().debug("show");
         this.mListAdapter.show(dataList, listClickAction);
     }
-
     //=============================================================================================
 
     private final class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
@@ -74,7 +73,6 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
             if (AppType.OBJ_IS_NULL(this.mListClickAction)) return;
             this.mListClickAction.onResult(this.mDataList.get(position));
         }
-
         //=========================================================================================
 
         final class ViewHolder extends RecyclerView.ViewHolder {
@@ -83,14 +81,12 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
                 super(view.getView());
                 this.mView = view;
                 this.itemView.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View v) {
                         ListAdapter.this.onClickListItemView(ViewHolder.this.getAdapterPosition());
                     }
                 });
             }
-
 
             private ItemView getView() {
                 return this.mView;
