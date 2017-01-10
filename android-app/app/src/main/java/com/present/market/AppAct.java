@@ -42,6 +42,7 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
         TextChangeAction amountChangeAction = new TextChangeAction() {
             @Override
             public void onResult(String refAmount) {
+                if (refAmount.isEmpty()) refAmount = "0";
                 app().store().setRefAmount(new AppType.AppAmount(refAmount));
             }
         };
