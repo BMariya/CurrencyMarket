@@ -23,7 +23,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
 
     @Override
     protected void onLoadData(TaskResult<Type> taskResult) {
-        log().todo("check date, version!");
+        log().todo("check date, version! sync file ?!");
         log().debug("onLoadData");
         if (new File(this.mFilePath).exists()) {
             try {
@@ -37,7 +37,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
 
     @Override
     protected void onSaveData(Type xmlObj, TaskResult<Void> taskResult) {
-        log().todo("check date, version!");
+        log().todo("check date, version! sync file ?!");
         log().debug("onSaveData");
         try {
             this.setData(xmlObj);

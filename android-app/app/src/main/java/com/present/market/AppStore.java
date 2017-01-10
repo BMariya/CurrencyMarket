@@ -1,9 +1,9 @@
 package com.present.market;
 
 import com.present.market.core.AbsAppStore;
-import com.present.market.core.base.AppType;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
+import com.present.market.core.base.AppType;
 import com.present.market.core.store.LocalSource;
 import com.present.market.core.store.RemoteSource;
 import com.present.market.obj.Valute;
@@ -32,7 +32,6 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
         this.mTitle = "-";
         this.mDate = new AppType.AppDate();
         this.mValuteList = new ArrayList<>();
-        this.mValuteList.add(this.mRefMarketValute);
         this.sync();
     }
 
@@ -76,10 +75,10 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     @Override
     public void onResult(Valutes valutes) {
         log().debug("onResult");
+        log().todo("onResult. clear ex?");
         this.mTitle = valutes.getName();
         this.mDate = valutes.getDate();
         this.mValuteList = valutes.getValuteList();
-        this.mValuteList.add(0, this.mRefMarketValute);
         updateAppCallbacks();
     }
 
@@ -100,7 +99,9 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     }
 
     public List<Valute> getValuteList() {
-        return this.mValuteList;
+        ArrayList<Valute> result = new ArrayList<>(this.mValuteList);
+        result.add(0, this.mRefMarketValute);
+        return result;
     }
 
     public void setRefAmount(AppType.AppAmount refAmount) {
