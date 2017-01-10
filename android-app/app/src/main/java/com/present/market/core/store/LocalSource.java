@@ -1,7 +1,7 @@
 package com.present.market.core.store;
 
-import com.present.market.core.base.AppType;
 import com.present.market.core.base.AppEx;
+import com.present.market.core.base.AppType;
 
 import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
@@ -54,10 +54,8 @@ public final class LocalSource<Type> extends AbsSource<Type> {
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(this.mFilePath);
-            //TODO: AnnotationStrategy???
-            Type xmlObj =
-                    new Persister(new AnnotationStrategy()).read(classObj, inputStream);
-            return xmlObj;
+            Type data = new Persister().read(classObj, inputStream);
+            return data;
         } catch (FileNotFoundException fex) {
             throw new AppEx(fex, "Error file '%s' - not found", this.mFilePath);
         } catch (Exception ex) {

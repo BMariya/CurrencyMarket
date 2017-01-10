@@ -3,7 +3,6 @@ package com.present.market.core.store;
 import com.present.market.core.base.AppEx;
 import com.present.market.core.base.AppType;
 
-import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.IOException;
@@ -41,7 +40,7 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
         InputStream inputStream = null;
         try {
             inputStream = new URL(this.mUrl).openStream();
-            Type data = new Persister(new AnnotationStrategy()).read(classObj, inputStream);
+            Type data = new Persister().read(classObj, inputStream);
             return data;
         } catch (MalformedURLException mex) {
             throw new AppEx(mex, "Error url '%s'", this.mUrl);
