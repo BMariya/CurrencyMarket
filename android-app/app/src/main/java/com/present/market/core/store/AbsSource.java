@@ -9,8 +9,8 @@ import com.present.market.core.base.AppEx;
 import com.present.market.core.base.AppType;
 
 public abstract class AbsSource<Type> extends AbsObj {
-    protected final Class<Type> classObj;
-    public AbsSource(Class<Type> classObj) {
+    final Class<Type> classObj;
+    AbsSource(Class<Type> classObj) {
         super();
         log().debug("classObj=%s", classObj);
         this.classObj = classObj;
@@ -31,14 +31,15 @@ public abstract class AbsSource<Type> extends AbsObj {
     protected abstract void onSaveData(Type data, TaskResult<Void> taskResult);
     //=============================================================================================
 
-    public final class LoadTask extends AsyncTask<Void, Void, TaskResult<Type>> {
+    private final class LoadTask extends AsyncTask<Void, Void, TaskResult<Type>> {
         private final AppCallback<Type> mAppCallback;
-        public LoadTask(AppCallback<Type> appCallback) {
+        private LoadTask(AppCallback<Type> appCallback) {
+            super();
             this.mAppCallback = appCallback;
         }
 
         public TaskResult<Type> doInBackground(Void... params) {
-            TaskResult<Type> taskResult = new TaskResult();
+            TaskResult<Type> taskResult = new TaskResult<>();
             AbsSource.this.onLoadData(taskResult);
             return taskResult;
         }
@@ -54,16 +55,17 @@ public abstract class AbsSource<Type> extends AbsObj {
     }
     //=============================================================================================
 
-    public final class SaveTask extends AsyncTask<Void, Void, TaskResult<Void>> {
+    private final class SaveTask extends AsyncTask<Void, Void, TaskResult<Void>> {
         private final Type mData;
         private final AppCallback<Type> mAppCallback;
-        public SaveTask(Type data, AppCallback<Type> appCallback) {
+        private SaveTask(Type data, AppCallback<Type> appCallback) {
+            super();
             this.mData = data;
             this.mAppCallback = appCallback;
         }
 
         public TaskResult<Void> doInBackground(Void... params) {
-            TaskResult<Void> taskResult = new TaskResult();
+            TaskResult<Void> taskResult = new TaskResult<>();
             AbsSource.this.onSaveData(this.mData, taskResult);
             return taskResult;
         }
@@ -78,32 +80,31 @@ public abstract class AbsSource<Type> extends AbsObj {
     }
     //=============================================================================================
 
-    public class TaskResult<Result> extends AbsObj {
+    final class TaskResult<Result> extends AbsObj {
         private AppEx mAppEx;
-        private Result mResult;
-
-        public AppEx getError() {
-            log().debug("getError");
-            return this.mAppEx;
-        }
-
-        public Result getResult() {
-            log().debug("getResult");
-            return this.mResult;
-        }
-
-        public void setError(AppEx appEx) {
+        void setError(AppEx appEx) {
             log().debug("setError");
             this.mAppEx = appEx;
         }
 
-        public void setResult(Result result) {
-            log().debug("setResult");
-            this.mResult = result;
+        private AppEx getError() {
+            log().debug("getError");
+            return this.mAppEx;
         }
 
-        public boolean isError() {
+        private boolean isError() {
             return AppType.OBJ_IS_NOT_NULL(this.mAppEx);
+        }
+
+        private Result mResult;
+        private Result getResult() {
+            log().debug("getResult");
+            return this.mResult;
+        }
+
+        void setResult(Result result) {
+            log().debug("setResult");
+            this.mResult = result;
         }
     }
 }

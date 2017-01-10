@@ -11,8 +11,8 @@ public abstract class TextChangeAction extends AbsObj implements TextWatcher, Ap
         super();
     }
 
-    public void afterTextChanged(Editable s) {
-        onResult(s.toString());
+    public final void afterTextChanged(Editable s) {
+        this.onResult(s.toString());
     }
 
     public final void beforeTextChanged(CharSequence s, int start, int count, int after) {}

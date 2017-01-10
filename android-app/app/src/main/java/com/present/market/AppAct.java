@@ -17,10 +17,10 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
     protected void onInit() {
         this.mMainFrame = new MainFrame(getFrameContentView());
         showFrame(this.mMainFrame);
-        long appInitTimeMs = app().getAppInitDurationInMs();
-        if (appInitTimeMs > 0) {
+        long appInitTimeInMs = app().getAppInitDurationInMs();
+        if (appInitTimeInMs > 0) {
             this.mInitFrame = new InitFrame(getFrameContentView());
-            showFrame(this.mInitFrame, appInitTimeMs);
+            showFrame(this.mInitFrame, appInitTimeInMs);
         }
         app().store().register(this);
     }
@@ -35,9 +35,8 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
         return (App) super.app();
     }
 
-    //TODO: default if error!
     @Override
-    public void onResult(AppStore appStore/*TODO: Type Obj Market*/) {
+    public void onResult(AppStore appStore) {
         log().debug("onResult");
         TextChangeAction amountChangeAction = new TextChangeAction() {
             @Override

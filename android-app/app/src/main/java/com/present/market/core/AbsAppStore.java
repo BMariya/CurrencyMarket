@@ -7,21 +7,24 @@ import com.present.market.core.base.AppType;
 
 import java.util.ArrayList;
 
-public abstract class AbsAppStore extends AbsObj {
-    private final ArrayList<AppCallback> mAppCallbackList = new ArrayList<>();
-
+public abstract class AbsAppStore<Store extends AbsAppStore, Type>
+        extends AbsObj implements AppCallback<Type> {
     public AbsAppStore() {
         super();
     }
 
+    protected abstract Store store();
+
     private AppEx mAppEx;
+    @Override
     public final void onError(AppEx appEx) {
         log().debug("setError");
         this.mAppEx = appEx;
         this.updateAppCallbacks();
     }
 
-    public final void register(AppCallback appCallback) {
+    private final ArrayList<AppCallback<Store>> mAppCallbackList = new ArrayList<>();
+    public final void register(AppCallback<Store> appCallback) {
         log().debug("register");
         this.mAppCallbackList.add(appCallback);
         this.updateAppCallbacks();
@@ -32,12 +35,13 @@ public abstract class AbsAppStore extends AbsObj {
         this.mAppCallbackList.remove(appCallback);
     }
 
-    public final void updateAppCallbacks() {
+    protected final void updateAppCallbacks() {
         log().debug("updateAppCallbacks");
-        for (AppCallback appCallback: mAppCallbackList) {
-            appCallback.onResult(this);
+        for (AppCallback<Store> appCallback: mAppCallbackList) {
+            appCallback.onResult(store());
             if (AppType.OBJ_IS_NULL(this.mAppEx)) return;
             appCallback.onError(this.mAppEx);
         }
+        this.mAppEx = null;
     }
 }

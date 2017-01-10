@@ -67,7 +67,7 @@
         android:layout_weight="1.0"
         android:layout_marginTop="@dimen/margin__small"
         android:layout_marginBottom="@dimen/margin__small" >
-        <!--TODO: easier?-->
+        <!--TODO: hide keyboard on start...-->
         <requestFocus/>
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

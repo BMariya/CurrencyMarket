@@ -24,7 +24,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
     @Override
     protected void onLoadData(TaskResult<Type> taskResult) {
         log().todo("check date, version!");
-        log().debug("load");
+        log().debug("onLoadData");
         if (new File(this.mFilePath).exists()) {
             try {
                 taskResult.setResult(this.getData());
@@ -38,7 +38,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
     @Override
     protected void onSaveData(Type xmlObj, TaskResult<Void> taskResult) {
         log().todo("check date, version!");
-        log().debug("save");
+        log().debug("onSaveData");
         try {
             this.setData(xmlObj);
             taskResult.setResult(null);
@@ -53,8 +53,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(this.mFilePath);
-            Type data = new Persister().read(classObj, inputStream);
-            return data;
+            return new Persister().read(classObj, inputStream);
         } catch (FileNotFoundException fex) {
             throw new AppEx(fex, "Error file '%s' - not found", this.mFilePath);
         } catch (Exception ex) {

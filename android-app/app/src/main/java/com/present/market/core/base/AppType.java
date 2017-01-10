@@ -9,6 +9,7 @@ import java.util.Locale;
 
 public final class AppType {
     private static final Locale sAppLocale = Locale.getDefault();
+    private static final Locale sDefaultLocale = Locale.UK;
 
     public static boolean OBJ_IS_NULL(Object obj) {
         return (obj == null);
@@ -22,7 +23,7 @@ public final class AppType {
         return dirPath.concat(sSeparator).concat(fileName);
     }
     //=============================================================================================
-//TODO:!
+
     public static final class AppAmount extends AbsObj {
         private static String sDisplayFormat = "%.4f";
         public float value;
@@ -36,12 +37,12 @@ public final class AppType {
         }
 
         public final String toDisplay() {
-            String result = String.format(sAppLocale, sDisplayFormat, this.value);
+            String result = String.format(sDefaultLocale, sDisplayFormat, this.value);
             log().trace("toDisplay.result=%s", result);
             return result;
         }
         public final String toDisplay(String unit) {
-            String result = String.format(sAppLocale, "%s %s", this.toDisplay(), unit);
+            String result = String.format(sDefaultLocale, "%s %s", this.toDisplay(), unit);
             log().trace("toDisplay.result=%s", result);
             return result;
         }
@@ -51,11 +52,12 @@ public final class AppType {
         }
     }
     //=============================================================================================
+
     public static final class AppDate extends AbsObj {
         private static final String sDefaultFormat = "dd.MM.yyyy";
         private static String sDisplayDefault = "--.--.----";
 
-        private Calendar value;
+        public Calendar value;
 
         public AppDate() {
             super();
@@ -82,7 +84,7 @@ public final class AppType {
             else result = String.format("%s %s %s, %s", this.value.get(Calendar.DAY_OF_MONTH),
                     this.value.getDisplayName(Calendar.MONTH, Calendar.LONG, sAppLocale),
                     this.value.get(Calendar.YEAR),
-                    value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, sAppLocale));
+                    this.value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, sAppLocale));
             log().trace("toDisplay.result=%s", result);
             return result;
         }

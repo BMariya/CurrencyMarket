@@ -12,7 +12,7 @@ import com.present.market.obj.Valutes;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class AppStore extends AbsAppStore {
+public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     private final LocalSource<Valutes> mLocalSource;
     private final RemoteSource<Valutes> mRemoteSource;
     private Valute mRefMarketValute;
@@ -32,11 +32,18 @@ public final class AppStore extends AbsAppStore {
         this.mTitle = "-";
         this.mDate = new AppType.AppDate();
         this.mValuteList = new ArrayList<>();
+        this.mValuteList.add(this.mRefMarketValute);
         this.sync();
     }
 
+    @Override
+    protected AppStore store() {
+        return this;
+    }
+
     private void sync() {
-        this.mLocalSource.load(new AppCallback<Valutes>(){
+        log().debug("sync");
+        this.mLocalSource.load(new AppCallback<Valutes>() {
             @Override
             public void onError(AppEx appEx) {
                 AppStore.this.onError(appEx);
@@ -47,7 +54,7 @@ public final class AppStore extends AbsAppStore {
                 AppStore.this.onResult(valutes);
             }
         });
-        this.mRemoteSource.load(new AppCallback<Valutes>(){
+        this.mRemoteSource.load(new AppCallback<Valutes>() {
             @Override
             public void onError(AppEx appEx) {
                 AppStore.this.onError(appEx);
@@ -64,6 +71,16 @@ public final class AppStore extends AbsAppStore {
                 });
             }
         });
+    }
+
+    @Override
+    public void onResult(Valutes valutes) {
+        log().debug("onResult");
+        this.mTitle = valutes.getName();
+        this.mDate = valutes.getDate();
+        this.mValuteList = valutes.getValuteList();
+        this.mValuteList.add(0, this.mRefMarketValute);
+        updateAppCallbacks();
     }
 
     public String getTitle() {
@@ -100,15 +117,5 @@ public final class AppStore extends AbsAppStore {
             this.mRefValute = refValute;
             updateAppCallbacks();
         }
-    }
-
-    //TODO:onResult???
-    public void onResult(Valutes valutes) {
-        log().debug("onResult");
-        this.mTitle = valutes.getName();
-        this.mDate = valutes.getDate();
-        this.mValuteList = valutes.getValuteList();
-        this.mValuteList.add(this.mRefMarketValute);
-        updateAppCallbacks();
     }
 }

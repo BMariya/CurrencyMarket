@@ -72,8 +72,8 @@ public abstract class AbsView extends AbsObj {
         this.getView().setVisibility(View.INVISIBLE);
     }
 
-    public final void show(long durationInMs) {
-        log().debug("show.durationInMs=%s", durationInMs);
+    public final void hide(long durationInMs) {
+        log().debug("hide.durationInMs=%s", durationInMs);
         if (this.isVisible()) {
             if (durationInMs <= 0) {
                 this.hide();
@@ -81,7 +81,6 @@ public abstract class AbsView extends AbsObj {
             }
             this.getView().animate().alpha(0.0f).setDuration(durationInMs)
                     .setListener(new AnimatorListenerAdapter() {
-
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             AbsView.this.hide();

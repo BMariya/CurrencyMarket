@@ -23,11 +23,12 @@ public final class Valutes extends AbsObj {
     }
 
     public AppType.AppDate getDate() {
+        log().todo("getValue.use XML Converter, or Transformer,...");
         return new AppType.AppDate(this.mDate);
     }
 
     public List<Valute> getValuteList() {
-        log().todo("getValuteList.AppType.AppList List? convert value type?");
+        log().todo("getValuteList.AppType.AppList?");
         return this.mValuteList;
     }
 }

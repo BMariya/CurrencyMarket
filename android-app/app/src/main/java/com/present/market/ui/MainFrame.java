@@ -46,7 +46,9 @@ public final class MainFrame extends AbsListFrame<ValuteView, Valute> {
                      AppType.AppAmount refAmount, List<Valute> valuteList,
                      TextChangeAction amountChangeAction, AppAction<Valute> valuteClickAction) {
         log().refactor("show.Params vs Object!? abstract void show!?");
-        log().debug("show");
+        log().debug("show.title=%s,date=%s", title, date);
+        log().debug("show.refValute=%s,refAmount=%s,valuteList.size()=%s", refValute, refAmount,
+                valuteList.size());
         this.mTvTitle.setText(title);
         this.mTvDate.setText(date.toDisplay());
         this.mEtvRefValuteAmount.setText(refAmount.toDisplay());

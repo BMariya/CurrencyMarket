@@ -21,7 +21,7 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
     @Override
     protected void onLoadData(TaskResult<Type> taskResult) {
         log().todo("check date, version!");
-        log().debug("load");
+        log().debug("onLoadData");
         try {
             taskResult.setResult(this.getData());
         } catch (AppEx appEx) {
@@ -40,8 +40,7 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
         InputStream inputStream = null;
         try {
             inputStream = new URL(this.mUrl).openStream();
-            Type data = new Persister().read(classObj, inputStream);
-            return data;
+            return new Persister().read(classObj, inputStream);
         } catch (MalformedURLException mex) {
             throw new AppEx(mex, "Error url '%s'", this.mUrl);
         } catch (IOException ioex) {

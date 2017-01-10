@@ -17,6 +17,6 @@ public final class InitFrame extends AbsFrame {
 
     @Override
     protected void onInit() {
-        log().todo("onInit.Empty?");
+        log().todo("onInit.Empty");
     }
 }

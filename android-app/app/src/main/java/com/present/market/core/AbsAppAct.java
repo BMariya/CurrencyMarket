@@ -42,7 +42,7 @@ public abstract class AbsAppAct extends AppCompatActivity {
     public final void showFrame(AbsFrame frame, long durationInMs) {
         log().debug("showFrame.durationInMs=%s", durationInMs);
         this.showFrame(frame);
-        frame.show(durationInMs);
+        frame.hide(durationInMs);
     }
 
     public final void showMessage(String message) {

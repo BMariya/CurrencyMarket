@@ -49,15 +49,15 @@ public final class Valute extends AbsObj {
     }
 
     public AppType.AppAmount getValue() {
-        log().todo("getValue.setValue? convert value type?");
+        log().todo("getValue.use XML Converter, or Transformer,...");
         return new AppType.AppAmount(this.mValue);
     }
 
     public AppType.AppAmount getRefValue(Valute refValute, AppType.AppAmount refAmount) {
         log().debug("getRefValue.refValute=%s,refAmount=%s", refValute, refAmount);
         AppType.AppAmount result = new AppType.AppAmount(
-                refAmount.value * (this.getValue().value / this.getNominal().value)
-                / (refValute.getValue().value / refValute.getNominal().value));
+                refAmount.value * (refValute.getValue().value / refValute.getNominal().value)
+                / (this.getValue().value / this.getNominal().value));
         log().debug("getRefValue.result=%s", result);
         return result;
     }
