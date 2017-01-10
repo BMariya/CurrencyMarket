@@ -47,7 +47,6 @@
             android:layout_weight="1.0"
             android:gravity="end"
             android:inputType="numberDecimal"
-            android:maxLength="@integer/amount__maxLength"
             style="@style/AppTheme.Text.Title"
             android:text="frame_main__etv_ref_valute_amount" />
         <TextView

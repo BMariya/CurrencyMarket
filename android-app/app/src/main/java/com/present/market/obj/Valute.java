@@ -63,9 +63,9 @@ public final class Valute extends AbsObj {
     }
 
     public final boolean equals(Valute value) {
-        return this.getCharCode().equals(value.getCharCode()) &&
-                this.getName().equals(value.getName()) &&
-                this.getNominal() == value.getNominal() &&
-                this.getValue().equals(value.getValue());
+        return this.getCharCode().equals(value.getCharCode())
+                && this.getName().equals(value.getName())
+                && this.getNominal() == value.getNominal()
+                && this.getValue().equals(value.getValue());
     }
 }

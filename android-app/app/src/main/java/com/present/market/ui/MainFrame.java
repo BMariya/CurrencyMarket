@@ -8,6 +8,7 @@ import com.present.market.R;
 import com.present.market.core.base.AppAction;
 import com.present.market.core.base.AppType;
 import com.present.market.core.ui.AbsListFrame;
+import com.present.market.core.ui.AmountInputFilter;
 import com.present.market.core.ui.TextChangeAction;
 import com.present.market.obj.Valute;
 
@@ -32,11 +33,15 @@ public final class MainFrame extends AbsListFrame<ValuteView, Valute> {
     private TextView mTvDate;
     private EditText mEtvRefValuteAmount;
     private TextView mTvRefValuteCode;
+    private TextChangeAction mAmountChangeAction;
     @Override
     protected void onInit() {
         this.mTvTitle = getTextView(R.id.frame_main__tv_title);
         this.mTvDate = getTextView(R.id.frame_main__tv_date);
         this.mEtvRefValuteAmount = getEditTextView(R.id.frame_main__etv_ref_valute_amount);
+        setInputFiter(this.mEtvRefValuteAmount, new AmountInputFilter());
+        this.mAmountChangeAction = new TextChangeAction();
+        setTextChangeAction(this.mEtvRefValuteAmount, this.mAmountChangeAction);
         this.mTvRefValuteCode = getTextView(R.id.frame_main__tv_ref_valute_code);
     }
 
@@ -44,16 +49,16 @@ public final class MainFrame extends AbsListFrame<ValuteView, Valute> {
     private Valute mRefValute;
     public void show(String title, AppType.AppDate date, Valute refValute,
                      AppType.AppAmount refAmount, List<Valute> valuteList,
-                     TextChangeAction amountChangeAction, AppAction<Valute> valuteClickAction) {
+                     AppAction<String> amountChangeAction, AppAction<Valute> valuteClickAction) {
         log().refactor("show.Params vs Object!? abstract void show!?");
         log().debug("show.title=%s,date=%s", title, date);
         log().debug("show.refValute=%s,refAmount=%s,valuteList.size()=%s", refValute, refAmount,
                 valuteList.size());
         this.mTvTitle.setText(title);
         this.mTvDate.setText(date.toDisplay());
-        this.mEtvRefValuteAmount.setText(refAmount.toDisplay());
         this.mTvRefValuteCode.setText(refValute.getCharCode());
-        setTextChangeAction(this.mEtvRefValuteAmount, amountChangeAction);
+        this.mAmountChangeAction.setAction(amountChangeAction);
+        this.mEtvRefValuteAmount.setText(refAmount.toDisplay());
         this.mRefValute = refValute;
         this.mRefAmount = refAmount;
         super.show(valuteList, valuteClickAction);

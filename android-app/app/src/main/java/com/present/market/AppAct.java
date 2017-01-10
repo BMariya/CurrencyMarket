@@ -1,11 +1,10 @@
 package com.present.market;
 
-import com.present.market.core.base.AppType;
 import com.present.market.core.AbsAppAct;
 import com.present.market.core.base.AppAction;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
-import com.present.market.core.ui.TextChangeAction;
+import com.present.market.core.base.AppType;
 import com.present.market.obj.Valute;
 import com.present.market.ui.InitFrame;
 import com.present.market.ui.MainFrame;
@@ -38,7 +37,7 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
     @Override
     public void onResult(AppStore appStore) {
         log().debug("onResult");
-        TextChangeAction amountChangeAction = new TextChangeAction() {
+        AppAction<String> amountChangeAction = new AppAction<String>() {
             @Override
             public void onResult(String refAmount) {
                 if (refAmount.isEmpty()) refAmount = "0";

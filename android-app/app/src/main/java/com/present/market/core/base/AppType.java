@@ -25,7 +25,7 @@ public final class AppType {
     //=============================================================================================
 
     public static final class AppAmount extends AbsObj {
-        private static String sDisplayFormat = "%.4f";
+        private static String sDisplayFormat = "%.3f";
         public float value;
         public AppAmount(float amount) {
             super();
@@ -36,18 +36,18 @@ public final class AppType {
             this(Float.parseFloat(amount.replace(",", ".")));
         }
 
-        public final String toDisplay() {
+        public String toDisplay() {
             String result = String.format(sDefaultLocale, sDisplayFormat, this.value);
             log().trace("toDisplay.result=%s", result);
             return result;
         }
-        public final String toDisplay(String unit) {
+        public String toDisplay(String unit) {
             String result = String.format(sDefaultLocale, "%s %s", this.toDisplay(), unit);
             log().trace("toDisplay.result=%s", result);
             return result;
         }
 
-        public final boolean equals(AppAmount appAmount) {
+        public boolean equals(AppAmount appAmount) {
             return (this.value == appAmount.value);
         }
     }
@@ -55,7 +55,7 @@ public final class AppType {
 
     public static final class AppDate extends AbsObj {
         private static final String sDefaultFormat = "dd.MM.yyyy";
-        private static String sDisplayDefault = "--.--.----";
+        private final String mDisplayDefault = "--.--.----";
 
         public Calendar value;
 
@@ -65,7 +65,7 @@ public final class AppType {
         public AppDate(String date, String format) {
             this();
             log().trace("date=%s,format=%s", date, format);
-            SimpleDateFormat dateFormat = new SimpleDateFormat(format, sAppLocale);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(format, sDefaultLocale);
             try {
                 Date parseDate = dateFormat.parse(date);
                 this.value = Calendar.getInstance();
@@ -78,9 +78,9 @@ public final class AppType {
             this(date, sDefaultFormat);
         }
 
-        public final String toDisplay() {
+        public String toDisplay() {
             String result;
-            if (OBJ_IS_NULL(this.value)) result = sDisplayDefault;
+            if (OBJ_IS_NULL(this.value)) result = this.mDisplayDefault;
             else result = String.format("%s %s %s, %s", this.value.get(Calendar.DAY_OF_MONTH),
                     this.value.getDisplayName(Calendar.MONTH, Calendar.LONG, sAppLocale),
                     this.value.get(Calendar.YEAR),

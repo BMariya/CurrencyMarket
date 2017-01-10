@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,11 @@ public abstract class AbsView extends AbsObj {
                         }
                     });
         }
+    }
+
+    protected final void setInputFiter(TextView textView, InputFilter inputFilter) {
+        log().debug("setInputFiter");
+        textView.setFilters(new InputFilter[] {inputFilter});
     }
 
     protected final void setTextChangeAction(TextView textView, TextChangeAction textChangeAction) {
