@@ -13,12 +13,6 @@ import java.util.List;
 public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFrame {
     public AbsListFrame(ViewGroup contentView) {
         super(contentView);
-        this.setView(contentView);
-    }
-
-    @Override
-    protected final void setView(ViewGroup contentView) {
-        super.setView(contentView);
         this.setListView();
     }
 

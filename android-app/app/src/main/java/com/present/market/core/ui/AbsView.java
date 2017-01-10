@@ -3,7 +3,6 @@ package com.present.market.core.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,8 +26,7 @@ public abstract class AbsView extends AbsObj {
 
     protected abstract void onInit();
 
-    @CallSuper
-    protected void setView(ViewGroup contentView) {
+    private void setView(ViewGroup contentView) {
         log().debug("setView");
         this.mContext = contentView.getContext();
         this.mView = LayoutInflater.from(this.mContext)
