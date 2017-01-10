@@ -32,6 +32,8 @@ public final class Valute extends AbsObj {
         this.mName = name;
         this.mNominal = nominal;
         this.mValue = value;
+        this.mId = "UNDEFINED";
+        this.mNumCode = "UNDEFINED";
     }
 
     public String getCharCode() {

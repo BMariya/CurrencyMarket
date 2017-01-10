@@ -3,11 +3,11 @@ package com.present.market.core;
 import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
+import com.present.market.core.base.AppType;
 
 import java.util.ArrayList;
 
 public abstract class AbsAppStore extends AbsObj {
-    //    private boolean mInit = true;
     private final ArrayList<AppCallback> mAppCallbackList = new ArrayList<>();
 
     public AbsAppStore() {
@@ -34,9 +34,9 @@ public abstract class AbsAppStore extends AbsObj {
 
     public final void updateAppCallbacks() {
         log().debug("updateAppCallbacks");
-//  todo      if (this.mInit) return;
         for (AppCallback appCallback: mAppCallbackList) {
             appCallback.onResult(this);
+            if (AppType.OBJ_IS_NULL(this.mAppEx)) return;
             appCallback.onError(this.mAppEx);
         }
     }

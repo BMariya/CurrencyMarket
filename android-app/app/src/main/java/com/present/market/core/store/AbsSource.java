@@ -48,6 +48,7 @@ public abstract class AbsSource<Type> extends AbsObj {
                 this.mAppCallback.onError(taskResult.getError());
                 return;
             }
+            if (AppType.OBJ_IS_NULL(taskResult.getResult())) return;
             this.mAppCallback.onResult(taskResult.getResult());
         }
     }
@@ -73,7 +74,6 @@ public abstract class AbsSource<Type> extends AbsObj {
                 return;
             }
             this.mAppCallback.onResult(null);
-
         }
     }
     //=============================================================================================
@@ -81,7 +81,6 @@ public abstract class AbsSource<Type> extends AbsObj {
     public class TaskResult<Result> extends AbsObj {
         private AppEx mAppEx;
         private Result mResult;
-        private boolean error;
 
         public AppEx getError() {
             log().debug("getError");

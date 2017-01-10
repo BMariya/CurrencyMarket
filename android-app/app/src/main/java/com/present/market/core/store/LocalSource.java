@@ -3,7 +3,6 @@ package com.present.market.core.store;
 import com.present.market.core.base.AppEx;
 import com.present.market.core.base.AppType;
 
-import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
@@ -71,17 +70,16 @@ public final class LocalSource<Type> extends AbsSource<Type> {
         }
     }
 
-    private void setData(Type xmlObj) throws AppEx {
-        log().debug("setData.xmlObj=%s", xmlObj);
+    private void setData(Type data) throws AppEx {
+        log().debug("setData.data=%s", data);
         OutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(this.mFilePath);
-            //TODO: AnnotationStrategy???
-            new Persister(new AnnotationStrategy()).write(xmlObj, outputStream);
+            new Persister().write(data, outputStream);
         } catch (FileNotFoundException fex) {
             throw new AppEx(fex, "Error file '%s' - not found", this.mFilePath);
         } catch (Exception ex) {
-            throw new AppEx(ex, "Error writing '%s' to OutputStream", xmlObj);
+            throw new AppEx(ex, "Error writing '%s' to OutputStream", data);
         } finally {
             if (AppType.OBJ_IS_NOT_NULL(outputStream)) {
                 try {
