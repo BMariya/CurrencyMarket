@@ -3,11 +3,16 @@ package com.present.market.obj;
 import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppType;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "Valute")
 public final class Valute extends AbsObj {
+    @Attribute(name = "ID")
+    private String mId;
+    @Element(name = "NumCode")
+    private String mNumCode;
     @Element(name = "CharCode")
     private String mCharCode;
     @Element(name = "Name")
