@@ -39,23 +39,23 @@ public abstract class AbsView extends AbsObj {
     protected abstract int onGetLayoutRes();
 
     public final View getView() {
-        log().debug("getView");
+        log().trace("getView");
         return this.mView;
     }
     private View getView(@IdRes int viewIdRes) {
-        log().debug("getView.viewIdRes=%s", viewIdRes);
+        log().trace("getView.viewIdRes=%s", viewIdRes);
         return this.getView().findViewById(viewIdRes);
     }
     protected final TextView getTextView(@IdRes int tvIdRes) {
-        log().debug("getTextView.tvIdRes=%s", tvIdRes);
+        log().trace("getTextView.tvIdRes=%s", tvIdRes);
         return (TextView) this.getView(tvIdRes);
     }
     protected final EditText getEditTextView(@IdRes int etvIdRes) {
-        log().debug("getEditTextView.etdIdRes=%s", etvIdRes);
+        log().trace("getEditTextView.etdIdRes=%s", etvIdRes);
         return (EditText) this.getView(etvIdRes);
     }
     protected final RecyclerView getRecyclerView(@IdRes int rvIdRes) {
-        log().debug("getRecyclerView.rvIdRes=%s", rvIdRes);
+        log().trace("getRecyclerView.rvIdRes=%s", rvIdRes);
         RecyclerView recyclerView = (RecyclerView) this.getView(rvIdRes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -65,7 +65,7 @@ public abstract class AbsView extends AbsObj {
 
     protected final boolean isVisible() {
         boolean result = (this.getView().getVisibility() == View.VISIBLE);
-        log().debug("isVisible.result=%s", result);
+        log().trace("isVisible.result=%s", result);
         return result;
     }
 
@@ -92,7 +92,7 @@ public abstract class AbsView extends AbsObj {
         }
     }
 
-    public final void setTextChangeAction(TextView textView, TextChangeAction textChangeAction) {
+    protected final void setTextChangeAction(TextView textView, TextChangeAction textChangeAction) {
         log().debug("setTextChangeAction");
         textView.addTextChangedListener(textChangeAction);
     }

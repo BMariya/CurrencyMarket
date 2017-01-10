@@ -12,7 +12,7 @@ public final class ValuteView extends AbsView {
     }
 
     @Override
-    protected int onGetLayoutRes() {
+    public int onGetLayoutRes() {
         return R.layout.view_valute;
     }
 
@@ -20,14 +20,14 @@ public final class ValuteView extends AbsView {
     private TextView mTvNominal;
     private TextView mTvRefNominal;
     @Override
-    protected void onInit() {
+    public void onInit() {
         this.mTvValue = getTextView(R.id.view_valute__tv_value);
         this.mTvNominal = getTextView(R.id.view_valute__tv_nominal);
         this.mTvRefNominal = getTextView(R.id.view_valute__tv_ref_nominal);
     }
 
     public void show(String value, String nominal, String refNominal) {
-        log().refactor("show.Params vs Object!? abstract void show!?");
+        log().todo("show.Params vs Object? abstract void show ?...");
         log().debug("show.value=%s,nominal=%s,refNominal=%s", value, nominal, refNominal);
         this.mTvValue.setText(value);
         this.mTvNominal.setText(nominal);

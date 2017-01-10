@@ -28,9 +28,8 @@ public final class AppType {
         public float value;
         public AppAmount(float amount) {
             super();
-            log().debug("amount=%s", amount);
+            log().trace("amount=%s", amount);
             this.value = amount;
-            log().debug("value=%s", this.value);
         }
         public AppAmount(String amount) {
             this(Float.parseFloat(amount.replace(",", ".")));
@@ -38,12 +37,12 @@ public final class AppType {
 
         public final String toDisplay() {
             String result = String.format(sAppLocale, sDisplayFormat, this.value);
-            log().debug("toDisplay.result=%s", result);
+            log().trace("toDisplay.result=%s", result);
             return result;
         }
         public final String toDisplay(String unit) {
             String result = String.format(sAppLocale, "%s %s", this.toDisplay(), unit);
-            log().debug("toDisplay.result=%s", result);
+            log().trace("toDisplay.result=%s", result);
             return result;
         }
 
@@ -63,7 +62,7 @@ public final class AppType {
         }
         public AppDate(String date, String format) {
             this();
-            log().debug("date=%s,format=%s", date, format);
+            log().trace("date=%s,format=%s", date, format);
             SimpleDateFormat dateFormat = new SimpleDateFormat(format, sAppLocale);
             try {
                 Date parseDate = dateFormat.parse(date);
@@ -72,7 +71,6 @@ public final class AppType {
             } catch (ParseException ex) {
                 log().error(ex, "Error parse date '%s' by format '%s'", date, format);
             }
-            log().debug("value=%s", this.value);
         }
         public AppDate(String date) {
             this(date, sDefaultFormat);
@@ -85,7 +83,7 @@ public final class AppType {
                     this.value.getDisplayName(Calendar.MONTH, Calendar.LONG, sAppLocale),
                     this.value.get(Calendar.YEAR),
                     value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, sAppLocale));
-            log().debug("toDisplay.result=%s", result);
+            log().trace("toDisplay.result=%s", result);
             return result;
         }
     }

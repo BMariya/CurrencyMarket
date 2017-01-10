@@ -22,6 +22,9 @@ public final class AppLog {
     public void trace(String frmtMsg, Object... args) {
         Log.v(this.mTag, String.format(frmtMsg, args));
     }
+    public void trace_init() {
+        this.trace("INIT");
+    }
 
     public void debug(String frmtMsg, Object... args) {
         Log.d(this.mTag, String.format(frmtMsg, args));
