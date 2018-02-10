@@ -18,8 +18,9 @@ public final class App extends AbsApp {
         String localFilePath = AppType.getFilePath(getAppDir(), BuildConfig.STORE_FILE);
         LocalSource<Valutes> localSource = new LocalSource<>(localFilePath, Valutes.class);
         this.mRemoteClient = new RemoteClient(BuildConfig.STORE_URL);
+        ValuteService valuteService = this.mRemoteClient.getRetrofit().create(ValuteService.class);
         RemoteSource<Valutes> remoteSource =
-                new RemoteSource<>(this.mRemoteClient, Valutes.class);
+                new RemoteSource<>(valuteService.listValutes(), Valutes.class);
         this.mAppStore = new AppStore(localSource, remoteSource, this.mValuteRuble);
     }
 

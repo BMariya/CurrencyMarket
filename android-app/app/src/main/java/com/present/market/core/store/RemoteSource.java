@@ -7,9 +7,11 @@ import org.simpleframework.xml.core.Persister;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+
 public final class RemoteSource<Type> extends AbsSource<Type> {
-    private RemoteClient mRemoteClient;
-    public RemoteSource(RemoteClient client, Class<Type> classObj) {
+    private Call<Type> mRemoteClient;
+    public RemoteSource(Call<Type> client, Class<Type> classObj) {
         super(classObj);
         this.mRemoteClient = client;
     }
@@ -34,8 +36,9 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
     private Type getData() throws AppEx {
         log().debug("getData");
         try {
-            Response response = this.mRemoteClient.getRequest().execute();
-            return new Persister().read(classObj, response.body().string());
+            retrofit2.Response<Type> response = this.mRemoteClient.execute();
+            return response.body();
+//            return new Persister().read(classObj, response.body().string());
 //        } catch (MalformedURLException mex) {
 //            throw new AppEx(mex, "Error url '%s'", this.mUrl);
         } catch (IOException ioex) {
