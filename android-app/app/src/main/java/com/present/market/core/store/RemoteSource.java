@@ -1,21 +1,17 @@
 package com.present.market.core.store;
 
 import com.present.market.core.base.AppEx;
-import com.present.market.core.base.AppType;
+import com.squareup.okhttp.Response;
 
 import org.simpleframework.xml.core.Persister;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public final class RemoteSource<Type> extends AbsSource<Type> {
-    private final String mUrl;
-    public RemoteSource(String url, Class<Type> classObj) {
+    private RemoteClient mRemoteClient;
+    public RemoteSource(RemoteClient client, Class<Type> classObj) {
         super(classObj);
-        log().debug("url=%s", url);
-        this.mUrl = url;
+        this.mRemoteClient = client;
     }
 
     @Override
@@ -37,24 +33,15 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
 
     private Type getData() throws AppEx {
         log().debug("getData");
-        InputStream inputStream = null;
         try {
-            inputStream = new URL(this.mUrl).openStream();
-            return new Persister().read(classObj, inputStream);
-        } catch (MalformedURLException mex) {
-            throw new AppEx(mex, "Error url '%s'", this.mUrl);
+            Response response = this.mRemoteClient.getRequest().execute();
+            return new Persister().read(classObj, response.body().string());
+//        } catch (MalformedURLException mex) {
+//            throw new AppEx(mex, "Error url '%s'", this.mUrl);
         } catch (IOException ioex) {
-            throw new AppEx(ioex, "Error opening url connection '%s'", this.mUrl);
+            throw new AppEx(ioex, "Error opening url connection");
         } catch (Exception ex) {
             throw new AppEx(ex, "Error reading '%s' from InputStream", classObj);
-        } finally {
-            if (AppType.OBJ_IS_NOT_NULL(inputStream)) {
-                try {
-                    inputStream.close();
-                } catch (IOException ex) {
-                    log().error(ex, "Error close stream Closeable");
-                }
-            }
         }
     }
 }
