@@ -1,9 +1,6 @@
 package com.present.market.core.store;
 
 import com.present.market.core.base.AppEx;
-import com.squareup.okhttp.Response;
-
-import org.simpleframework.xml.core.Persister;
 
 import java.io.IOException;
 

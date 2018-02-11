@@ -34,7 +34,8 @@ dependencies {
 //        exclude module: 'xpp3'
 //    }
     testCompile 'junit:junit:4.12'
-    implementation 'com.squareup.okhttp:okhttp:2.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-simplexml:2.3.0'
+    implementation 'com.google.dagger:dagger:2.14'
 }

@@ -1,11 +1,8 @@
 package com.present.market.core.store;
 
-import com.present.market.ValuteService;
 import com.present.market.core.base.AbsObj;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
@@ -22,10 +19,9 @@ public class RemoteClient extends AbsObj {
         this.mRetrofit = new Retrofit
                 .Builder()
                 .baseUrl(this.mUrl)
+                .client(mClient)
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
-        ValuteService valuteService = this.mRetrofit.create(ValuteService.class);
-        valuteService.listValutes();
     }
 
     public Retrofit getRetrofit() {
