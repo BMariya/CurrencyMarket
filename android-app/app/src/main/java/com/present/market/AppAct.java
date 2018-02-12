@@ -9,9 +9,12 @@ import com.present.market.obj.Valute;
 import com.present.market.ui.InitFrame;
 import com.present.market.ui.MainFrame;
 
+import javax.inject.Inject;
+
 public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
     private InitFrame mInitFrame;
     private MainFrame mMainFrame;
+    @Inject AppStore mAppStore;
     @Override
     protected void onInit() {
         this.mMainFrame = new MainFrame(getFrameContentView());
@@ -21,12 +24,15 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             this.mInitFrame = new InitFrame(getFrameContentView());
             showFrame(this.mInitFrame, appInitTimeInMs);
         }
-        app().store().register(this);
+//        app().getStoreComponent().inject(this);
+        app().plusStoreComponent().inject(this);
+        this.mAppStore.register(this);
     }
 
     @Override
     public void onOut() {
-        app().store().unregister(this);
+        this.mAppStore.unregister(this);
+        app().clearStoreComponent();
     }
 
     @Override
@@ -41,13 +47,13 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             @Override
             public void onResult(String refAmount) {
                 if (refAmount.isEmpty()) refAmount = "0";
-                app().store().setRefAmount(new AppType.AppAmount(refAmount));
+                mAppStore.setRefAmount(new AppType.AppAmount(refAmount));
             }
         };
         AppAction<Valute> valuteClickAction = new AppAction<Valute>() {
             @Override
             public void onResult(Valute valute) {
-                app().store().setRefValute(valute);
+                mAppStore.setRefValute(valute);
             }
         };
         this.mMainFrame.show(appStore.getTitle(), appStore.getDate(), appStore.getRefValute(),

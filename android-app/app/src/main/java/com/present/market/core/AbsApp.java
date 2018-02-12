@@ -1,9 +1,7 @@
 package com.present.market.core;
 
 import android.app.Application;
-import android.os.Environment;
 
-import com.present.market.BuildConfig;
 import com.present.market.core.base.AppLog;
 import com.present.market.core.base.AppType;
 
@@ -23,23 +21,6 @@ public abstract class AbsApp extends Application {
     public final long getAppInitDurationInMs() {
         long result = sAppInitDurationInMs - (System.currentTimeMillis() - this.mAppStartTimeInMs);
         log().debug("getAppInitDurationInMs.result=%s", result);
-        return result;
-    }
-
-    private String mAppDir;
-    protected final String getAppDir() {
-        log().debug("getAppDir");
-        if (AppType.OBJ_IS_NULL(this.mAppDir)) this.mAppDir = this.onGetAppDir();
-        return this.mAppDir;
-    }
-
-    private String onGetAppDir() {
-        log().debug("onGetAppDir");
-        String result;
-        if (BuildConfig.DEBUG) result = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        else result = getFilesDir().getAbsolutePath();
-        log().debug("onGetAppDir.result=%s", result);
         return result;
     }
 
