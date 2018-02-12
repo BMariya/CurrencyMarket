@@ -1,4 +1,4 @@
-package com.present.market;
+package com.present.market.net;
 
 import com.present.market.obj.Valutes;
 

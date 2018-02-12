@@ -3,7 +3,6 @@ package com.present.market.core;
 import android.app.Application;
 
 import com.present.market.core.base.AppLog;
-import com.present.market.core.base.AppType;
 
 public abstract class AbsApp extends Application {
     private static final long sAppInitDurationInMs = 5000;
@@ -26,7 +25,7 @@ public abstract class AbsApp extends Application {
 
     private AppLog mLog;
     protected final AppLog log() {
-        if (AppType.OBJ_IS_NULL(this.mLog)) this.mLog = new AppLog(this);
+        if (this.mLog == null) this.mLog = new AppLog(this);
         return this.mLog;
     }
 }

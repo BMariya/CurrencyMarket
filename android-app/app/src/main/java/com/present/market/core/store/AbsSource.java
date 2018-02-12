@@ -6,7 +6,6 @@ import android.support.annotation.WorkerThread;
 import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
-import com.present.market.core.base.AppType;
 
 public abstract class AbsSource<Type> extends AbsObj {
     final Class<Type> classObj;
@@ -49,7 +48,7 @@ public abstract class AbsSource<Type> extends AbsObj {
                 this.mAppCallback.onError(taskResult.getError());
                 return;
             }
-            if (AppType.OBJ_IS_NULL(taskResult.getResult())) return;
+            if (taskResult.getResult() == null) return;
             this.mAppCallback.onResult(taskResult.getResult());
         }
     }
@@ -93,7 +92,7 @@ public abstract class AbsSource<Type> extends AbsObj {
         }
 
         private boolean isError() {
-            return AppType.OBJ_IS_NOT_NULL(this.mAppEx);
+            return this.mAppEx != null;
         }
 
         private Result mResult;

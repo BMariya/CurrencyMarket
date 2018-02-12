@@ -8,7 +8,7 @@ public abstract class AbsObj {
 
     private AppLog mLog;
     protected final AppLog log() {
-        if (AppType.OBJ_IS_NULL(this.mLog)) this.mLog = new AppLog(this);
+        if (this.mLog == null) this.mLog = new AppLog(this);
         return this.mLog;
     }
 }

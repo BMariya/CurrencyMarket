@@ -5,7 +5,6 @@ import android.text.TextWatcher;
 
 import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppAction;
-import com.present.market.core.base.AppType;
 
 public final class TextChangeAction extends AbsObj implements TextWatcher {
     private AppAction<String> mAppAction;
@@ -14,7 +13,7 @@ public final class TextChangeAction extends AbsObj implements TextWatcher {
     }
 
     public void afterTextChanged(Editable s) {
-        if (AppType.OBJ_IS_NULL(this.mAppAction)) return;
+        if (this.mAppAction == null) return;
         this.mAppAction.onResult(s.toString());
     }
 

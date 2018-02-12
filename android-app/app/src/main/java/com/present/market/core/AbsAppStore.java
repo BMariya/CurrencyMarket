@@ -3,7 +3,6 @@ package com.present.market.core;
 import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
-import com.present.market.core.base.AppType;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public abstract class AbsAppStore<Store extends AbsAppStore, Type>
         log().debug("updateAppCallbacks");
         for (AppCallback<Store> appCallback: mAppCallbackList) {
             appCallback.onResult(store());
-            if (AppType.OBJ_IS_NULL(this.mAppEx)) return;
+            if (this.mAppEx == null) return;
             appCallback.onError(this.mAppEx);
         }
         this.mAppEx = null;

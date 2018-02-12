@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.present.market.R;
 import com.present.market.core.base.AppLog;
-import com.present.market.core.base.AppType;
 import com.present.market.core.ui.AbsFrame;
 
 public abstract class AbsAppAct extends AppCompatActivity {
@@ -16,7 +15,7 @@ public abstract class AbsAppAct extends AppCompatActivity {
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.core_activity);
-        this.mFrameContentView = (ViewGroup) findViewById(R.id.core_activity__frame_content);
+        this.mFrameContentView = findViewById(R.id.core_activity__frame_content);
         log().info_init();
         this.onInit();
     }
@@ -52,13 +51,13 @@ public abstract class AbsAppAct extends AppCompatActivity {
 
     private AppLog mLog;
     protected final AppLog log() {
-        if (AppType.OBJ_IS_NULL(this.mLog)) this.mLog = new AppLog(this);
+        if (this.mLog == null) this.mLog = new AppLog(this);
         return this.mLog;
     }
 
     private AbsApp mApp;
     protected AbsApp app() {
-        if (AppType.OBJ_IS_NULL(this.mApp)) this.mApp = (AbsApp) getApplication();
+        if (this.mApp == null) this.mApp = (AbsApp) getApplication();
         return this.mApp;
     }
 }

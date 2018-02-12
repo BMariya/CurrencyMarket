@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.present.market.core.base.AppAction;
-import com.present.market.core.base.AppType;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
         }
 
         public int getItemCount() {
-            return AppType.OBJ_IS_NULL(this.mDataList) ? 0 : this.mDataList.size();
+            return (this.mDataList == null) ? 0 : this.mDataList.size();
         }
 
         public void onBindViewHolder(ViewHolder holder, int position) {
@@ -64,7 +63,7 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
         }
 
         private void onClickListItemView(int position) {
-            if (AppType.OBJ_IS_NULL(this.mListClickAction)) return;
+            if (this.mListClickAction == null) return;
             this.mListClickAction.onResult(this.mDataList.get(position));
         }
         //=========================================================================================

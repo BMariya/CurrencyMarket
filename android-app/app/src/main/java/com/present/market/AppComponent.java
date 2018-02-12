@@ -1,5 +1,9 @@
 package com.present.market;
 
+import com.present.market.di.comp.AppActComp;
+import com.present.market.di.module.AppActModule;
+import com.present.market.di.module.AppModule;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -7,10 +11,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-//    Valute valuteRuble();
-//    LocalSource<Valutes> localSource();
-//    RemoteSource<Valutes> remoteSource();
-
-    StoreComponent plusStoreComponent(StoreModule storeModule);
-//    void inject(AppAct appAct);
+    void inject(App app);
+    AppActComp plusAppActComp(AppActModule appActModule);
 }
