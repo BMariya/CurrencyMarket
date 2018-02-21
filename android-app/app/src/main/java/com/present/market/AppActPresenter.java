@@ -1,5 +1,7 @@
 package com.present.market;
 
+import com.present.market.ui.AppAct;
+
 public class AppActPresenter {
 
     private AppAct mAppAct;

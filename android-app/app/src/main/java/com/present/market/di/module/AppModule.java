@@ -1,16 +1,15 @@
 package com.present.market.di.module;
 
+import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.present.market.AppStore;
 import com.present.market.BuildConfig;
-import com.present.market.core.AbsApp;
 import com.present.market.core.base.AppType;
 import com.present.market.core.store.LocalSource;
 import com.present.market.core.store.RemoteClient;
 import com.present.market.core.store.RemoteSource;
-import com.present.market.di.scope.SingleActivity;
 import com.present.market.net.ValuteService;
 import com.present.market.obj.Valute;
 import com.present.market.obj.Valutes;
@@ -24,18 +23,18 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private AbsApp mApp;
+    private Context mContext;
 
-    public AppModule(AbsApp app) {
+    public AppModule(Context context) {
         super();
-        this.mApp = app;
+        this.mContext = context;
     }
 
     @Singleton
     @NonNull
     @Provides
-    public AbsApp provideApp() {
-        return this.mApp;
+    public Context provideContext() {
+        return this.mContext;
     }
 
     @Singleton
@@ -49,11 +48,11 @@ public class AppModule {
     @NonNull
     @Provides
     @Named("appDir")
-    public String provideAppDir(AbsApp app) {
+    public String provideAppDir(Context context) {
         String result;
         if (BuildConfig.DEBUG) result = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        else result = app.getFilesDir().getAbsolutePath();
+        else result = context.getFilesDir().getAbsolutePath();
         return result;
     }
 

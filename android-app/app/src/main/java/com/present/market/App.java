@@ -1,39 +1,18 @@
 package com.present.market;
 
 import com.present.market.core.AbsApp;
-import com.present.market.di.comp.AppActComp;
-import com.present.market.di.module.AppActModule;
-import com.present.market.di.module.AppModule;
-
-import javax.inject.Inject;
+import com.present.market.di.AppMan;
 
 public final class App extends AbsApp {
 
-    private AppComponent mAppComponent;
-    private AppActComp mAppActComp;
-    @Inject AppStore mAppStore;
+    private AppMan mAppMan;
+
     @Override
     protected void onInit() {
-        this.mAppComponent = buildComponent();
-        this.mAppComponent.inject(this);
-    }
-    private AppComponent buildComponent() {
-        return DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
+        this.mAppMan = new AppMan(this);
     }
 
-    public AppStore store() {
-        return this.mAppStore;
-    }
-
-    public AppActComp plusAppActComp() {
-        if (this.mAppActComp == null) {
-            this.mAppActComp = this.mAppComponent.plusAppActComp(new AppActModule());
-        }
-        return this.mAppActComp;
-    }
-    public void clearAppActComp() {
-        this.mAppActComp = null;
+    public AppMan man() {
+        return this.mAppMan;
     }
 }

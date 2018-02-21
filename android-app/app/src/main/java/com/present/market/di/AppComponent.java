@@ -1,6 +1,6 @@
-package com.present.market;
+package com.present.market.di;
 
-import com.present.market.App;
+import com.present.market.AppActModule;
 import com.present.market.di.comp.AppActComp;
 import com.present.market.di.module.AppModule;
 
@@ -11,6 +11,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject(App app);
-    AppActComp plusAppActComp(com.present.market.AppActModule appActModule);
+    void inject(AppMan appMan);
+    AppActComp plusAppActComp(AppActModule appActModule);
 }

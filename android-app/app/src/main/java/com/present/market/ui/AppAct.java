@@ -24,16 +24,16 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             this.mInitFrame = new InitFrame(getFrameContentView());
             showFrame(this.mInitFrame, appInitTimeInMs);
         }
-        app().plusAppActComp().inject(this);
+        app().man().plusAppActComp().inject(this);
         this.mPresenter.bind(this);
-        app().store().register(this);
+        app().man().store().register(this);
     }
 
     @Override
     public void onOut() {
-        app().store().unregister(this);
+        app().man().store().unregister(this);
         this.mPresenter.unbind();
-        app().clearAppActComp();
+        app().man().clearAppActComp();
     }
 
     @Override
@@ -48,13 +48,13 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             @Override
             public void onResult(String refAmount) {
                 if (refAmount.isEmpty()) refAmount = "0";
-                app().store().setRefAmount(new AppType.AppAmount(refAmount));
+                app().man().store().setRefAmount(new AppType.AppAmount(refAmount));
             }
         };
         AppAction<Valute> valuteClickAction = new AppAction<Valute>() {
             @Override
             public void onResult(Valute valute) {
-                app().store().setRefValute(valute);
+                app().man().store().setRefValute(valute);
             }
         };
         this.mMainFrame.show(appStore.getTitle(), appStore.getDate(), appStore.getRefValute(),
