@@ -5,6 +5,7 @@ import com.present.market.di.AppMan;
 
 public final class App extends AbsApp {
 
+    //TODO AppMan - remove??? may be inject appcomponent to app?
     private AppMan mAppMan;
 
     @Override
