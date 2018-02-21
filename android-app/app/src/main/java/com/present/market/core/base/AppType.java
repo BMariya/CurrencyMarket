@@ -11,13 +11,6 @@ public final class AppType {
     private static final Locale sAppLocale = Locale.getDefault();
     private static final Locale sDefaultLocale = Locale.UK;
 
-    public static boolean OBJ_IS_NULL(Object obj) {
-        return (obj == null);
-    }
-    public static boolean OBJ_IS_NOT_NULL(Object obj) {
-        return !OBJ_IS_NULL(obj);
-    }
-
     private static final String sSeparator = File.separator;
     public static String getFilePath(String dirPath, String fileName) {
         return dirPath.concat(sSeparator).concat(fileName);
@@ -80,7 +73,7 @@ public final class AppType {
 
         public String toDisplay() {
             String result;
-            if (OBJ_IS_NULL(this.value)) result = this.mDisplayDefault;
+            if (this.value == null) result = this.mDisplayDefault;
             else result = String.format("%s %s %s, %s", this.value.get(Calendar.DAY_OF_MONTH),
                     this.value.getDisplayName(Calendar.MONTH, Calendar.LONG, sAppLocale),
                     this.value.get(Calendar.YEAR),

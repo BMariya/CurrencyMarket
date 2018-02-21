@@ -1,7 +1,6 @@
 package com.present.market.core.store;
 
 import com.present.market.core.base.AppEx;
-import com.present.market.core.base.AppType;
 
 import org.simpleframework.xml.core.Persister;
 
@@ -59,7 +58,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
         } catch (Exception ex) {
             throw new AppEx(ex, "Error reading '%s' from InputStream", classObj);
         } finally {
-            if (AppType.OBJ_IS_NOT_NULL(inputStream)) {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException ex) {
@@ -80,7 +79,7 @@ public final class LocalSource<Type> extends AbsSource<Type> {
         } catch (Exception ex) {
             throw new AppEx(ex, "Error writing '%s' to OutputStream", data);
         } finally {
-            if (AppType.OBJ_IS_NOT_NULL(outputStream)) {
+            if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException ex) {

@@ -1,20 +1,20 @@
-package com.present.market;
+package com.present.market.ui;
 
+import com.present.market.App;
+import com.present.market.AppStore;
 import com.present.market.core.AbsAppAct;
 import com.present.market.core.base.AppAction;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
 import com.present.market.core.base.AppType;
 import com.present.market.obj.Valute;
-import com.present.market.ui.InitFrame;
-import com.present.market.ui.MainFrame;
 
 import javax.inject.Inject;
 
 public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
     private InitFrame mInitFrame;
     private MainFrame mMainFrame;
-    @Inject AppStore mAppStore;
+    @Inject AppActPresenter mPresenter;
     @Override
     protected void onInit() {
         this.mMainFrame = new MainFrame(getFrameContentView());
@@ -24,15 +24,16 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             this.mInitFrame = new InitFrame(getFrameContentView());
             showFrame(this.mInitFrame, appInitTimeInMs);
         }
-//        app().getStoreComponent().inject(this);
-        app().plusStoreComponent().inject(this);
-        this.mAppStore.register(this);
+        app().plusAppActComp().inject(this);
+        this.mPresenter.bind(this);
+        app().store().register(this);
     }
 
     @Override
     public void onOut() {
-        this.mAppStore.unregister(this);
-        app().clearStoreComponent();
+        app().store().unregister(this);
+        this.mPresenter.unbind();
+        app().clearAppActComp();
     }
 
     @Override
@@ -47,13 +48,13 @@ public final class AppAct extends AbsAppAct implements AppCallback<AppStore> {
             @Override
             public void onResult(String refAmount) {
                 if (refAmount.isEmpty()) refAmount = "0";
-                mAppStore.setRefAmount(new AppType.AppAmount(refAmount));
+                app().store().setRefAmount(new AppType.AppAmount(refAmount));
             }
         };
         AppAction<Valute> valuteClickAction = new AppAction<Valute>() {
             @Override
             public void onResult(Valute valute) {
-                mAppStore.setRefValute(valute);
+                app().store().setRefValute(valute);
             }
         };
         this.mMainFrame.show(appStore.getTitle(), appStore.getDate(), appStore.getRefValute(),

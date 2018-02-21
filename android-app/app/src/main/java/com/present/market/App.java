@@ -1,42 +1,39 @@
 package com.present.market;
 
 import com.present.market.core.AbsApp;
-import com.present.market.core.base.AppType;
-import com.present.market.core.store.LocalSource;
-import com.present.market.core.store.RemoteClient;
-import com.present.market.core.store.RemoteSource;
-import com.present.market.obj.Valute;
-import com.present.market.obj.Valutes;
+import com.present.market.di.comp.AppActComp;
+import com.present.market.di.module.AppActModule;
+import com.present.market.di.module.AppModule;
 
 import javax.inject.Inject;
 
 public final class App extends AbsApp {
 
-    private static AppComponent component;
-    private StoreComponent storeComponent;
-    public AppComponent getComponent() {
-        return component;
-    }
+    private AppComponent mAppComponent;
+    private AppActComp mAppActComp;
+    @Inject AppStore mAppStore;
     @Override
     protected void onInit() {
-        component = buildComponent();
-//        storeComponent = DaggerStoreComponent.builder().appComponent(component).build();
+        this.mAppComponent = buildComponent();
+        this.mAppComponent.inject(this);
     }
-
-    protected AppComponent buildComponent() {
+    private AppComponent buildComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
     }
 
-    public StoreComponent plusStoreComponent() {
-        if (storeComponent == null) {
-            storeComponent = component.plusStoreComponent(new StoreModule());
-        }
-        return storeComponent;
+    public AppStore store() {
+        return this.mAppStore;
     }
 
-    public void clearStoreComponent() {
-        storeComponent = null;
+    public AppActComp plusAppActComp() {
+        if (this.mAppActComp == null) {
+            this.mAppActComp = this.mAppComponent.plusAppActComp(new AppActModule());
+        }
+        return this.mAppActComp;
+    }
+    public void clearAppActComp() {
+        this.mAppActComp = null;
     }
 }
