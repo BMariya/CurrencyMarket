@@ -3,10 +3,9 @@ package com.present.market.core.ui;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppAction;
 
-public final class TextChangeAction extends AbsObj implements TextWatcher {
+public final class TextChangeAction implements TextWatcher {
     private AppAction<String> mAppAction;
     public TextChangeAction() {
         super();

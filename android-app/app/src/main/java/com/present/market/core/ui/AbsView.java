@@ -14,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.present.market.core.base.AbsObj;
-
-public abstract class AbsView extends AbsObj {
+public abstract class AbsView {
     private Context mContext;
     private View mView;
     public AbsView(ViewGroup contentView) {
@@ -28,7 +26,6 @@ public abstract class AbsView extends AbsObj {
     protected abstract void onInit();
 
     private void setView(ViewGroup contentView) {
-        log().debug("setView");
         this.mContext = contentView.getContext();
         this.mView = LayoutInflater.from(this.mContext)
                 .inflate(this.onGetLayoutRes(), contentView, false);
@@ -38,23 +35,18 @@ public abstract class AbsView extends AbsObj {
     protected abstract int onGetLayoutRes();
 
     public final View getView() {
-        log().trace("getView");
         return this.mView;
     }
     private View getView(@IdRes int viewIdRes) {
-        log().trace("getView.viewIdRes=%s", viewIdRes);
         return this.getView().findViewById(viewIdRes);
     }
     protected final TextView getTextView(@IdRes int tvIdRes) {
-        log().trace("getTextView.tvIdRes=%s", tvIdRes);
         return (TextView) this.getView(tvIdRes);
     }
     protected final EditText getEditTextView(@IdRes int etvIdRes) {
-        log().trace("getEditTextView.etdIdRes=%s", etvIdRes);
         return (EditText) this.getView(etvIdRes);
     }
     protected final RecyclerView getRecyclerView(@IdRes int rvIdRes) {
-        log().trace("getRecyclerView.rvIdRes=%s", rvIdRes);
         RecyclerView recyclerView = (RecyclerView) this.getView(rvIdRes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -64,17 +56,14 @@ public abstract class AbsView extends AbsObj {
 
     protected final boolean isVisible() {
         boolean result = (this.getView().getVisibility() == View.VISIBLE);
-        log().trace("isVisible.result=%s", result);
         return result;
     }
 
     protected final void hide() {
-        log().debug("hide");
         this.getView().setVisibility(View.INVISIBLE);
     }
 
     public final void hide(long durationInMs) {
-        log().debug("hide.durationInMs=%s", durationInMs);
         if (this.isVisible()) {
             if (durationInMs <= 0) {
                 this.hide();
@@ -91,12 +80,10 @@ public abstract class AbsView extends AbsObj {
     }
 
     protected final void setInputFiter(TextView textView, InputFilter inputFilter) {
-        log().debug("setInputFiter");
         textView.setFilters(new InputFilter[] {inputFilter});
     }
 
     protected final void setTextChangeAction(TextView textView, TextChangeAction textChangeAction) {
-        log().debug("setTextChangeAction");
         textView.addTextChangedListener(textChangeAction);
     }
 }

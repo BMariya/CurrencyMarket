@@ -11,8 +11,8 @@ import com.present.market.core.store.LocalSource;
 import com.present.market.core.store.RemoteClient;
 import com.present.market.core.store.RemoteSource;
 import com.present.market.net.ValuteService;
-import com.present.market.obj.Valute;
-import com.present.market.obj.Valutes;
+import com.present.market.model.Valute;
+import com.present.market.model.Valutes;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

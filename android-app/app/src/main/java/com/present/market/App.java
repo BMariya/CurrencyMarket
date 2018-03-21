@@ -1,19 +1,26 @@
 package com.present.market;
 
-import com.present.market.core.AbsApp;
+import android.app.Application;
+
 import com.present.market.di.AppMan;
 
-public final class App extends AbsApp {
-
-    //TODO AppMan - remove??? may be inject appcomponent to app?
+public final class App extends Application {
+    private static final long sAppInitDurationInMs = 5000;
+    private long mAppStartTimeInMs;
     private AppMan mAppMan;
 
     @Override
-    protected void onInit() {
+    public final void onCreate() {
+        super.onCreate();
         this.mAppMan = new AppMan(this);
+        this.mAppStartTimeInMs = System.currentTimeMillis();
     }
 
     public AppMan man() {
         return this.mAppMan;
+    }
+
+    public final long getAppInitDurationInMs() {
+        return sAppInitDurationInMs - (System.currentTimeMillis() - this.mAppStartTimeInMs);
     }
 }

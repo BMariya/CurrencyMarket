@@ -9,7 +9,7 @@ import com.present.market.core.base.AppAction;
 
 import java.util.List;
 
-public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFrame {
+public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsView {
     public AbsListFrame(ViewGroup contentView) {
         super(contentView);
         this.setListView();
@@ -17,7 +17,6 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
 
     private ListAdapter mListAdapter;
     private void setListView() {
-        log().debug("setListView");
         this.mListAdapter = new ListAdapter();
         RecyclerView rvList = getRecyclerView(this.onGetRecyclerViewIdRes());
         rvList.setAdapter(this.mListAdapter);
@@ -31,7 +30,6 @@ public abstract class AbsListFrame<ItemView extends AbsView, Item> extends AbsFr
     protected abstract void onSetListItemView(ItemView itemView, Item item);
 
     public final void show(List<Item> dataList, AppAction<Item> listClickAction) {
-        log().debug("show");
         this.mListAdapter.show(dataList, listClickAction);
     }
     //=============================================================================================

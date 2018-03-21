@@ -27,8 +27,6 @@ public final class ValuteView extends AbsView {
     }
 
     public void show(String value, String nominal, String refNominal) {
-        log().refactor("show.Params vs Object!? abstract void show!?");
-        log().debug("show.value=%s,nominal=%s,refNominal=%s", value, nominal, refNominal);
         this.mTvValue.setText(value);
         this.mTvNominal.setText(nominal);
         this.mTvRefNominal.setText(refNominal);

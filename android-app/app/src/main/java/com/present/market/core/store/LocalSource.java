@@ -16,19 +16,15 @@ public final class LocalSource<Type> extends AbsSource<Type> {
     private final String mFilePath;
     public LocalSource(String filePath, Class<Type> classObj) {
         super(classObj);
-        log().debug("filePath=%s", classObj);
         this.mFilePath = filePath;
     }
 
     @Override
     protected void onLoadData(TaskResult<Type> taskResult) {
-        log().todo("check date, version! sync file ?!");
-        log().debug("onLoadData");
         if (new File(this.mFilePath).exists()) {
             try {
                 taskResult.setResult(this.getData());
             } catch (AppEx appEx) {
-                log().error(appEx, "Error loading data from Local Source");
                 taskResult.setError(appEx);
             }
         }
@@ -36,19 +32,15 @@ public final class LocalSource<Type> extends AbsSource<Type> {
 
     @Override
     protected void onSaveData(Type xmlObj, TaskResult<Void> taskResult) {
-        log().todo("check date, version! sync file ?!");
-        log().debug("onSaveData");
         try {
             this.setData(xmlObj);
             taskResult.setResult(null);
         } catch (AppEx appEx) {
-            log().error(appEx, "Error saving data to Local Source");
             taskResult.setError(appEx);
         }
     }
 
     private Type getData() throws AppEx {
-        log().debug("getData");
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(this.mFilePath);
@@ -62,14 +54,12 @@ public final class LocalSource<Type> extends AbsSource<Type> {
                 try {
                     inputStream.close();
                 } catch (IOException ex) {
-                    log().error(ex, "Error close stream Closeable");
                 }
             }
         }
     }
 
     private void setData(Type data) throws AppEx {
-        log().debug("setData.data=%s", data);
         OutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(this.mFilePath);
@@ -83,7 +73,6 @@ public final class LocalSource<Type> extends AbsSource<Type> {
                 try {
                     outputStream.close();
                 } catch (IOException ex) {
-                    log().error(ex, "Error close stream Closeable");
                 }
             }
         }

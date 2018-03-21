@@ -1,6 +1,6 @@
 package com.present.market.net;
 
-import com.present.market.obj.Valutes;
+import com.present.market.model.Valutes;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

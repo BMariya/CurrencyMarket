@@ -1,8 +1,6 @@
 package com.present.market.ui;
 
-import com.present.market.core.base.AbsObj;
-
-public class AppActPresenter extends AbsObj {
+public class AppActPresenter {
     private AppAct mAppAct;
     public AppActPresenter() {
         super();

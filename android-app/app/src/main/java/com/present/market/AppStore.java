@@ -6,8 +6,8 @@ import com.present.market.core.base.AppEx;
 import com.present.market.core.base.AppType;
 import com.present.market.core.store.LocalSource;
 import com.present.market.core.store.RemoteSource;
-import com.present.market.obj.Valute;
-import com.present.market.obj.Valutes;
+import com.present.market.model.Valute;
+import com.present.market.model.Valutes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,6 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     }
 
     private void sync() {
-        log().debug("sync");
         this.mLocalSource.load(new AppCallback<Valutes>() {
             @Override
             public void onError(AppEx appEx) {
@@ -74,8 +73,6 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
 
     @Override
     public void onResult(Valutes valutes) {
-        log().debug("onResult");
-        log().todo("onResult. clear ex?");
         this.mTitle = valutes.getName();
         this.mDate = valutes.getDate();
         this.mValuteList = valutes.getValuteList();
@@ -105,7 +102,6 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     }
 
     public void setRefAmount(AppType.AppAmount refAmount) {
-        log().debug("setRefAmount.refAmount=%s", refAmount);
         if (!this.mRefAmount.equals(refAmount)) {
             this.mRefAmount = refAmount;
             updateAppCallbacks();
@@ -113,7 +109,6 @@ public final class AppStore extends AbsAppStore<AppStore, Valutes> {
     }
 
     public void setRefValute(Valute refValute) {
-        log().debug("setRefValute");
         if (!this.mRefValute.equals(refValute)) {
             this.mRefValute = refValute;
             updateAppCallbacks();

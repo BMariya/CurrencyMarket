@@ -3,8 +3,8 @@ package com.present.market.di;
 import android.content.Context;
 
 import com.present.market.AppStore;
-import com.present.market.di.comp.AppActComp;
-import com.present.market.di.module.AppModule;
+import com.present.market.di.comp.*;
+import com.present.market.di.module.*;
 
 import javax.inject.Inject;
 

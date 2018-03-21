@@ -1,6 +1,5 @@
-package com.present.market.obj;
+package com.present.market.model;
 
-import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppType;
 
 import org.simpleframework.xml.Attribute;
@@ -8,7 +7,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "Valute")
-public final class Valute extends AbsObj {
+public final class Valute {
     @Attribute(name = "ID")
     private String mId;
     @Element(name = "NumCode")
@@ -27,7 +26,6 @@ public final class Valute extends AbsObj {
     }
     public Valute(String charCode, String name, int nominal, String value) {
         this();
-        log().debug("charCode=%s,name=%s,nominal=%s,value=%s", charCode, name, nominal, value);
         this.mCharCode = charCode;
         this.mName = name;
         this.mNominal = nominal;
@@ -49,23 +47,35 @@ public final class Valute extends AbsObj {
     }
 
     public AppType.AppAmount getValue() {
-        log().todo("getValue.use XML Converter, or Transformer,...");
         return new AppType.AppAmount(this.mValue);
     }
 
     public AppType.AppAmount getRefValue(Valute refValute, AppType.AppAmount refAmount) {
-        log().debug("getRefValue.refValute=%s,refAmount=%s", refValute, refAmount);
         AppType.AppAmount result = new AppType.AppAmount(
                 refAmount.value * (refValute.getValue().value / refValute.getNominal().value)
                 / (this.getValue().value / this.getNominal().value));
-        log().debug("getRefValue.result=%s", result);
         return result;
     }
 
-    public final boolean equals(Valute value) {
-        return this.getCharCode().equals(value.getCharCode())
-                && this.getName().equals(value.getName())
-                && this.getNominal() == value.getNominal()
-                && this.getValue().equals(value.getValue());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Valute valute = (Valute) o;
+
+        if (mNominal != valute.mNominal) return false;
+        if (!mCharCode.equals(valute.mCharCode)) return false;
+        if (!mName.equals(valute.mName)) return false;
+        return mValue.equals(valute.mValue);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mCharCode.hashCode();
+        result = 31 * result + mName.hashCode();
+        result = 31 * result + mNominal;
+        result = 31 * result + mValue.hashCode();
+        return result;
     }
 }

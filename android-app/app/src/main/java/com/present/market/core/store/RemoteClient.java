@@ -1,19 +1,16 @@
 package com.present.market.core.store;
 
-import com.present.market.core.base.AbsObj;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
-public class RemoteClient extends AbsObj {
+public class RemoteClient {
 
     private OkHttpClient mClient;
     private Retrofit mRetrofit;
     private final String mUrl;
 
     public RemoteClient (String url) {
-        log().debug("url=%s", url);
         this.mClient = new OkHttpClient();
         this.mUrl = url;
         this.mRetrofit = new Retrofit

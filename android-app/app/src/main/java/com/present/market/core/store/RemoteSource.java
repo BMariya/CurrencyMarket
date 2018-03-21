@@ -15,23 +15,18 @@ public final class RemoteSource<Type> extends AbsSource<Type> {
 
     @Override
     protected void onLoadData(TaskResult<Type> taskResult) {
-        log().todo("check date, version!");
-        log().debug("onLoadData");
         try {
             taskResult.setResult(this.getData());
         } catch (AppEx appEx) {
-            log().error(appEx, "Error loading data from remote Source");
             taskResult.setError(appEx);
         }
     }
 
     @Override
     protected void onSaveData(Type xmlObj, TaskResult<Void> taskResult) {
-        log().todo("empty?");
     }
 
     private Type getData() throws AppEx {
-        log().debug("getData");
         try {
             retrofit2.Response<Type> response = this.mRemoteClient.execute();
             return response.body();

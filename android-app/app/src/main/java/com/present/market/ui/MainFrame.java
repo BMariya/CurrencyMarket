@@ -10,7 +10,7 @@ import com.present.market.core.base.AppType;
 import com.present.market.core.ui.AbsListFrame;
 import com.present.market.core.ui.AmountInputFilter;
 import com.present.market.core.ui.TextChangeAction;
-import com.present.market.obj.Valute;
+import com.present.market.model.Valute;
 
 import java.util.List;
 
@@ -50,10 +50,6 @@ public final class MainFrame extends AbsListFrame<ValuteView, Valute> {
     public void show(String title, AppType.AppDate date, Valute refValute,
                      AppType.AppAmount refAmount, List<Valute> valuteList,
                      AppAction<String> amountChangeAction, AppAction<Valute> valuteClickAction) {
-        log().refactor("show.Params vs Object!? abstract void show!?");
-        log().debug("show.title=%s,date=%s", title, date);
-        log().debug("show.refValute=%s,refAmount=%s,valuteList.size()=%s", refValute, refAmount,
-                valuteList.size());
         this.mTvTitle.setText(title);
         this.mTvDate.setText(date.toDisplay());
         this.mTvRefValuteCode.setText(refValute.getCharCode());

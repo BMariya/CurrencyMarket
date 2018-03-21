@@ -6,8 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.present.market.R;
-import com.present.market.core.base.AppLog;
-import com.present.market.core.ui.AbsFrame;
+import com.present.market.core.ui.AbsView;
 
 public abstract class AbsAppAct extends AppCompatActivity {
     private ViewGroup mFrameContentView;
@@ -16,14 +15,12 @@ public abstract class AbsAppAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.core_activity);
         this.mFrameContentView = findViewById(R.id.core_activity__frame_content);
-        log().info_init();
         this.onInit();
     }
 
     protected abstract void onInit();
 
     public final void onDestroy() {
-        log().info_out();
         this.onOut();
         super.onDestroy();
     }
@@ -33,31 +30,16 @@ public abstract class AbsAppAct extends AppCompatActivity {
         return this.mFrameContentView;
     }
 
-    public final void showFrame(AbsFrame frame) {
-        log().debug("showFrame");
+    public final void showFrame(AbsView frame) {
         this.mFrameContentView.addView(frame.getView());
     }
 
-    public final void showFrame(AbsFrame frame, long durationInMs) {
-        log().debug("showFrame.durationInMs=%s", durationInMs);
+    public final void showFrame(AbsView frame, long durationInMs) {
         this.showFrame(frame);
         frame.hide(durationInMs);
     }
 
     public final void showMessage(String message) {
-        log().debug("showMessage.message=%s", message);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    private AppLog mLog;
-    protected final AppLog log() {
-        if (this.mLog == null) this.mLog = new AppLog(this);
-        return this.mLog;
-    }
-
-    private AbsApp mApp;
-    protected AbsApp app() {
-        if (this.mApp == null) this.mApp = (AbsApp) getApplication();
-        return this.mApp;
     }
 }

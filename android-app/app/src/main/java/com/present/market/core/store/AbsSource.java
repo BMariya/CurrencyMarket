@@ -3,15 +3,13 @@ package com.present.market.core.store;
 import android.os.AsyncTask;
 import android.support.annotation.WorkerThread;
 
-import com.present.market.core.base.AbsObj;
 import com.present.market.core.base.AppCallback;
 import com.present.market.core.base.AppEx;
 
-public abstract class AbsSource<Type> extends AbsObj {
+public abstract class AbsSource<Type> {
     final Class<Type> classObj;
     AbsSource(Class<Type> classObj) {
         super();
-        log().debug("classObj=%s", classObj);
         this.classObj = classObj;
     }
 
@@ -79,15 +77,13 @@ public abstract class AbsSource<Type> extends AbsObj {
     }
     //=============================================================================================
 
-    final class TaskResult<Result> extends AbsObj {
+    final class TaskResult<Result> {
         private AppEx mAppEx;
         void setError(AppEx appEx) {
-            log().debug("setError");
             this.mAppEx = appEx;
         }
 
         private AppEx getError() {
-            log().debug("getError");
             return this.mAppEx;
         }
 
@@ -97,12 +93,10 @@ public abstract class AbsSource<Type> extends AbsObj {
 
         private Result mResult;
         private Result getResult() {
-            log().debug("getResult");
             return this.mResult;
         }
 
         void setResult(Result result) {
-            log().debug("setResult");
             this.mResult = result;
         }
     }

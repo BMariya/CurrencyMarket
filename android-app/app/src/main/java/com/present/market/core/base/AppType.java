@@ -17,12 +17,11 @@ public final class AppType {
     }
     //=============================================================================================
 
-    public static final class AppAmount extends AbsObj {
+    public static final class AppAmount {
         private static String sDisplayFormat = "%.3f";
         public float value;
         public AppAmount(float amount) {
             super();
-            log().trace("amount=%s", amount);
             this.value = amount;
         }
         public AppAmount(String amount) {
@@ -31,12 +30,10 @@ public final class AppType {
 
         public String toDisplay() {
             String result = String.format(sDefaultLocale, sDisplayFormat, this.value);
-            log().trace("toDisplay.result=%s", result);
             return result;
         }
         public String toDisplay(String unit) {
             String result = String.format(sDefaultLocale, "%s %s", this.toDisplay(), unit);
-            log().trace("toDisplay.result=%s", result);
             return result;
         }
 
@@ -46,7 +43,7 @@ public final class AppType {
     }
     //=============================================================================================
 
-    public static final class AppDate extends AbsObj {
+    public static final class AppDate {
         private static final String sDefaultFormat = "dd.MM.yyyy";
         private final String mDisplayDefault = "--.--.----";
 
@@ -57,14 +54,12 @@ public final class AppType {
         }
         public AppDate(String date, String format) {
             this();
-            log().trace("date=%s,format=%s", date, format);
             SimpleDateFormat dateFormat = new SimpleDateFormat(format, sDefaultLocale);
             try {
                 Date parseDate = dateFormat.parse(date);
                 this.value = Calendar.getInstance();
                 this.value.setTime(parseDate);
             } catch (ParseException ex) {
-                log().error(ex, "Error parse date '%s' by format '%s'", date, format);
             }
         }
         public AppDate(String date) {
@@ -78,7 +73,6 @@ public final class AppType {
                     this.value.getDisplayName(Calendar.MONTH, Calendar.LONG, sAppLocale),
                     this.value.get(Calendar.YEAR),
                     this.value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, sAppLocale));
-            log().trace("toDisplay.result=%s", result);
             return result;
         }
     }
